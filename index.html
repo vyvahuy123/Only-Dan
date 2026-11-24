@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FF5FA2">
+<title>Chúc mừng sinh nhật!</title>
+<script>document.documentElement.className="js"</script>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;800&family=Be+Vietnam+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --apricot:#FCC89B; --magenta:#FF5FA2; --ok:#2FA37A;
+  --bg:#FFF4EA; --ink:#3B1636; --card:#FFFFFF; --muted:#7A5A74; --glow:rgba(255,95,162,.35);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#22091F;--ink:#FFE9D6;--card:#341432;--muted:#D9B3C8;--glow:rgba(255,95,162,.5);--ok:#5BD6A8;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#22091F;--ink:#FFE9D6;--card:#341432;--muted:#D9B3C8;--glow:rgba(255,95,162,.5);--ok:#5BD6A8;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Be Vietnam Pro",system-ui,sans-serif;overflow-x:hidden;transition:background-color .6s ease}
+body[data-scene="1"]{background:color-mix(in srgb,var(--bg) 90%,var(--apricot))}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+section{padding:36px 18px;max-width:520px;margin:0 auto;text-align:center;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+h1{font:800 clamp(2.6rem,12vw,4.4rem)/.95 "Baloo 2",system-ui,sans-serif;margin:16px 0 8px;color:var(--magenta);letter-spacing:-.02em}
+h2{font:800 1.7rem/1.2 "Baloo 2",system-ui,sans-serif;margin:0 0 6px}
+.name{font:800 clamp(1.4rem,6vw,2rem)/1.1 "Baloo 2",system-ui,sans-serif;margin:0}
+.muted{color:var(--muted);margin:6px auto 0;max-width:34ch}
+.btn{background:var(--magenta);color:#fff;border:0;border-radius:999px;padding:14px 28px;min-height:48px;font-weight:500;cursor:pointer;margin-top:16px}
+.btn.ghost{background:none;color:var(--magenta);box-shadow:inset 0 0 0 2px var(--magenta)}
+.btn:disabled{opacity:.55;cursor:default}
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .42s ease,transform .42s cubic-bezier(.22,.8,.3,1);transition-delay:calc(var(--i,0)*55ms)}
+.js .rv.in{opacity:1;transform:none}
+.js .rv:not(.in){will-change:opacity,transform}
+
+/* hero */
+.hero{background:radial-gradient(60% 45% at 50% 26%,var(--glow),transparent 70%)}
+.bong{--on:0;position:relative;width:130px;height:210px;border:0;background:none;cursor:pointer;padding:0}
+.bong .head{position:absolute;left:50%;top:0;width:110px;height:110px;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff 0,var(--apricot) 30%,var(--magenta) 100%);
+  box-shadow:0 0 0 5px color-mix(in srgb,var(--magenta) 25%,transparent),0 0 calc(8px + 44px*var(--on)) calc(2px + 10px*var(--on)) var(--glow);
+  filter:saturate(calc(.6 + .6*var(--on)));transition:box-shadow .3s,filter .3s}
+.bong .head::after{content:"♥";position:absolute;inset:0;display:grid;place-items:center;font-size:48px;color:#fff}
+.bong .stick{position:absolute;left:50%;top:108px;width:22px;height:100px;transform:translateX(-50%);
+  background:linear-gradient(90deg,var(--apricot),#fff 45%,var(--magenta));border-radius:6px 6px 12px 12px}
+.bong.on{--on:1;animation:sway 1.6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.stage{display:none;margin:14px auto 0;width:100%;max-width:300px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:0 0 0 3px var(--magenta);background:#000}
+.stage.show{display:block;animation:pop .3s ease}
+.stage iframe{width:100%;height:100%;border:0;display:block}
+.yt{display:none;margin-top:8px;font-size:.85rem}.yt.show{display:block}.yt a{color:var(--magenta)}
+@keyframes pop{from{opacity:0;transform:scale(.92)}}
+
+/* kitchen */
+.tray{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;width:100%;margin:14px 0 4px}
+.slot{aspect-ratio:1;border-radius:14px;background:var(--card);display:grid;place-items:center;font-size:1.5rem;position:relative}
+.slot i{font-style:normal;opacity:.18;filter:grayscale(1);transition:opacity .4s}
+.slot.on i{opacity:1;filter:none;animation:pop .3s ease}
+.slot.on{box-shadow:0 0 0 2px var(--magenta)}
+.count{font-weight:500;color:var(--muted);font-size:.95rem}
+.panel{width:100%;min-height:340px;margin-top:10px;background:var(--card);border-radius:24px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.q{font:800 1.3rem/1.3 "Baloo 2",system-ui,sans-serif;margin:0 0 14px}
+.opts{display:grid;gap:10px;width:100%}
+.opt{min-height:52px;border:2px solid color-mix(in srgb,var(--magenta) 45%,transparent);background:none;border-radius:16px;padding:10px 14px;cursor:pointer;text-align:left}
+.opt.good{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.bad{opacity:.45;text-decoration:line-through}
+.big{font:800 1.5rem/1.2 "Baloo 2",system-ui,sans-serif;color:var(--magenta);margin:0}
+.bar{width:80%;height:10px;border-radius:99px;background:color-mix(in srgb,var(--magenta) 20%,transparent);overflow:hidden;margin:16px 0}
+.bar i{display:block;height:100%;background:var(--magenta);transform:scaleX(0);transform-origin:0 50%;transition-property:transform;transition-timing-function:linear}
+.bar i.go{transform:scaleX(1)}
+.bowl{font-size:64px;line-height:1;animation:shake .45s ease-in-out infinite}
+@keyframes shake{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+
+/* cake */
+.cake{display:block;width:min(100%,280px);height:auto;margin:4px auto 0;overflow:visible}
+.cake .st{transform-box:fill-box;transform-origin:center;animation:tw 1.8s ease-in-out infinite}
+@keyframes tw{50%{opacity:.35;transform:scale(.6)}}
+.cake .fl{transform-box:fill-box;transform-origin:50% 100%;animation:fl .5s ease-in-out infinite alternate;transition:opacity .4s,transform .4s}
+@keyframes fl{to{transform:scale(1.1,.92) rotate(3deg)}}
+.cake.out .fl{opacity:0;transform:scale(.2);animation:none}
+.cake .sm{opacity:0;transform-box:fill-box;transform-origin:center}
+.cake.out .sm{animation:smoke 1s ease-out both}
+@keyframes smoke{from{opacity:.6}to{opacity:0;transform:translateY(-26px) scale(1.7)}}
+.cake.build .tr{animation:rise .4s cubic-bezier(.22,.8,.3,1.15) both;animation-delay:var(--d)}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+#gate{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:color-mix(in srgb,var(--bg) 85%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .3s ease,visibility .3s}
+#gate.hide{opacity:0;visibility:hidden;pointer-events:none}
+.gcard{background:var(--card);border-radius:28px;padding:28px 22px;max-width:340px;text-align:center;box-shadow:0 20px 50px var(--glow)}
+.gcard .em{font-size:48px;line-height:1}
+.gcard h2{margin-top:10px;font-size:1.45rem}
+.gcard:focus{outline:none}
+.gcard .opts{margin-top:16px}
+.gcard.sw{animation:pop .28s ease}
+#cakestage{position:fixed;inset:0;z-index:22;display:flex;overflow-y:auto;padding:20px;background:radial-gradient(circle at 50% 40%,rgba(255,95,162,.3),transparent 58%),rgba(6,1,6,.92);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility 0s linear .25s}
+#cakestage.show{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.cs{margin:auto;display:flex;flex-direction:column;align-items:center;width:100%}
+.cs .cake{width:min(80vw,320px,47vh);width:min(80vw,320px,47svh);margin:0}
+.csb{display:flex;flex-direction:column;align-items:center;min-height:64px}
+#letter{position:fixed;inset:0;z-index:25;display:grid;place-items:center;padding:20px;background:rgba(34,9,31,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s,visibility 0s linear .22s}
+#letter.show{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.lbox{width:min(100%,420px);max-height:min(84vh,680px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:26px 22px 22px;border-radius:26px;background:var(--card);box-shadow:0 12px 40px var(--glow),0 0 0 3px var(--magenta);text-align:left;transform:translateY(14px) scale(.96);transition:transform .22s}
+#letter.show .lbox{transform:none}
+.lbox:focus{outline:none}
+.lbox h2{font-size:1.9rem;color:var(--magenta);margin:0 0 12px}
+.lbox p{margin:0 0 .9em;line-height:1.65}
+.lbox .btn{display:block;margin:18px auto 0}
+#toast{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:24px;background:rgba(34,9,31,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,visibility 0s linear .18s}
+#toast.show{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+.tbox{max-width:min(86vw,340px);padding:22px 24px;border-radius:24px;background:var(--card);color:var(--ink);text-align:center;font:800 1.3rem/1.35 "Baloo 2",system-ui,sans-serif;box-shadow:0 12px 40px var(--glow),0 0 0 3px var(--magenta);transform:scale(.94);transition:transform .18s}
+#toast.show .tbox{transform:scale(1)}
+#toast.bad .tbox{color:var(--magenta)}
+.gcard.no{animation:no .3s}
+@keyframes no{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.js body.lock{overflow:hidden}
+footer{text-align:center;padding:4px 20px 48px;font:800 1.2rem "Baloo 2",system-ui,sans-serif;color:var(--magenta)}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:24}
+@media (prefers-reduced-motion:reduce){.bong.on,.cake .fl,.cake .st,.bowl,.cake.build .tr,.cake.out .sm,.slot.on i,.stage.show{animation:none}#gate,#toast,.tbox,#letter,.lbox,#cakestage{transition:none}.gcard.sw,.gcard.no{animation:none}.js .rv{opacity:1;transform:none;transition:none}body{transition:none}}
+</style>
+</head>
+<body class="lock">
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gt">
+  <div class="gcard" id="gcard" tabindex="-1">
+    <div class="em" id="gem"></div>
+    <h2 id="gt"></h2>
+    <p class="muted" id="gp"></p>
+    <div class="opts" id="gopts"></div>
+  </div>
+</div>
+<noscript><style>#gate{display:none}</style></noscript>
+<div id="cakestage" role="dialog" aria-modal="true" aria-label="Chiếc bánh sinh nhật">
+  <div class="cs" id="cs"></div>
+</div>
+<div id="letter" role="dialog" aria-modal="true" aria-labelledby="lt">
+  <div class="lbox" id="lbox" tabindex="-1">
+    <h2 id="lt"></h2>
+    <div id="lbody"></div>
+    <button class="btn" id="lclose">Đóng</button>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"><div class="tbox" id="tbox"></div></div>
+
+
+<section class="hero">
+  <div class="bong rv" id="bong" aria-hidden="true"><span class="head"></span><span class="stick"></span></div>
+  <p class="muted rv" style="--i:1" id="hint">Chiếc bánh sinh nhật đang chờ bạn ở phía dưới</p>
+  <div class="stage" id="stage"></div>
+  <p class="yt" id="yt">Nhạc không lên? <a id="ytlink" href="#" target="_blank" rel="noopener">Mở trên YouTube</a></p>
+  <h1 class="rv" style="--i:2">Happy Birthday!</h1>
+  <p class="name rv" style="--i:3" id="name"></p>
+  <p class="muted rv" style="--i:4">Trả lời câu hỏi về TWICE để gom nguyên liệu và tự nướng chiếc bánh sinh nhật của bạn.</p>
+  <button class="btn rv" style="--i:5" id="start">Bắt đầu nấu bánh</button>
+</section>
+
+<section id="kitchen">
+  <h2 class="rv">Gian bếp ONCE</h2>
+  <p class="muted rv" style="--i:1">Trả lời đúng để giúp Vỹ tìm kiếm nguyên liệu.</p>
+  <div class="tray" id="tray" aria-label="Nguyên liệu đã có"></div>
+  <p class="count" id="count" aria-live="polite">0/7 nguyên liệu</p>
+  <div class="panel" id="panel" aria-live="polite"></div>
+</section>
+
+<footer>Love you, ONCE! ♥</footer>
+
+<script>
+// ===== Chỉnh ở đây =====
+var NAME = "Đan";   // tên người nhận
+var LETTER = [
+  "Thấp thoáng chắc cũng phải 4 năm chị làm chị của em rồi. Chị cũng giúp đỡ em rất nhiều, nên sinh nhật lần này quà tặng em gửi Đan chỉ là nháp thôi nhưng em sẽ tặng Đan 1 vé ensure khi về già rang sống với em tới lúc đó để em còn có dịp báo đáp ân tình nhé.",
+  "Thôi thì tào lao như vậy đủ rồi. Thì hôm nay nhân dịp sinh nhật 18 tuổi (lần thứ 7). Em chúc chị của em luôn MẠNH KHỎE (cái này quan trọng nè), luôn luôn tươi trẻ và lúc nào cũng giữ nụ cười trên môi như hiện tại nhé. Xin Chúa đồng hành cũng với chị trong hành trình sắp tới để chị có thể làm được nhiều điều chị muốn.",
+  "Happy birthday, Đan, my forever big sister, always in my heart. Thank you for always being there as my big sister."
+];
+var VIDEO_ID = "";          // ID video YouTube (link youtu.be/ABC123 thì điền ABC123)
+// =======================
+var ING = [["🌾","bột mì"],["🥚","trứng"],["🥛","sữa"],["🍬","đường"],["🧈","bơ"],["🍦","kem tươi"],["🍓","dâu tây"]];
+// [câu hỏi, [đáp án], vị trí đáp án đúng, thông tin thêm]
+var Q = [
+ ["Tên fandom chính thức của TWICE là gì?",["ONCE","BLINK","ARMY","CARAT"],0,"ONCE đi trước TWICE, nên có ONCE rồi mới có TWICE."],
+ ["TWICE có bao nhiêu thành viên?",["7","8","9","10"],2,"Nayeon, Jeongyeon, Momo, Sana, Jihyo, Mina, Dahyun, Chaeyoung và Tzuyu."],
+ ["TWICE được thành lập qua chương trình sống còn nào?",["SIXTEEN","Produce 101","Mix Nine","Idol School"],0,"SIXTEEN là chương trình tuyển thực tập sinh của JYP."],
+ ["TWICE ra mắt vào năm nào?",["2014","2015","2016","2017"],1,"Nhóm debut ngày 20/10/2015 với single Like Ooh-Aah."],
+ ["Ai là trưởng nhóm của TWICE?",["Nayeon","Momo","Jihyo","Sana"],2,"Jihyo là leader và cũng là main vocalist."],
+ ["Ai là thành viên lớn tuổi nhất (sinh 22/9/1995)?",["Jihyo","Nayeon","Jeongyeon","Momo"],1,"Nayeon là chị cả của nhóm."],
+ ["Ai là em út (maknae), sinh ngày 14/6/1999?",["Chaeyoung","Dahyun","Tzuyu","Mina"],2,"Tzuyu đến từ Đài Loan."],
+ ["Biệt danh \"Dubu\" (đậu hũ) là của ai?",["Chaeyoung","Dahyun","Sana","Jeongyeon"],1,"Dahyun có làn da trắng mịn nên được gọi là Tofu."],
+ ["Ai có biệt danh \"Chim cánh cụt\" vì dáng đi đáng yêu?",["Momo","Tzuyu","Mina","Jihyo"],2,"Mina nổi tiếng với dáng đi lạch bạch dễ thương."],
+ ["Ai được gọi là \"Thỏ\" vì cặp răng cửa dễ thương?",["Dahyun","Nayeon","Chaeyoung","Sana"],1,"Nayeon, hay Bunny, từng đứng đầu ở nhiều bài title."],
+ ["Ai sinh ngày 29/12?",["Sana","Momo","Jihyo","Mina"],0,"Sana sinh năm 1996, là một trong ba thành viên người Nhật."],
+ ["Ai sinh ngày 9/11?",["Jeongyeon","Mina","Tzuyu","Momo"],3,"Jeongyeon cũng sinh tháng 11 nhưng vào ngày 1/11."],
+ ["Nhóm nhỏ của Momo, Sana và Mina tên là gì?",["MIMOSA","MISAMO","MOSANA","TZUMO"],1,"MISAMO là sub-unit đầu tiên của TWICE."],
+ ["Lightstick chính thức của TWICE tên là gì?",["Candy Bong","Heart Stick","Sweet Wand","Once Light"],0,"Candy Bong có hai màu đại diện là apricot và neon magenta."]
+];
+
+var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+var $ = function(id){ return document.getElementById(id) };
+
+// ---- hiện dần khi cuộn + đổi nền theo cảnh ----
+var watch = function(el){ el.classList.add("in") };
+if("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target) } }) },{threshold:.15});
+  watch = function(el){ io.observe(el) };
+  var sc = document.querySelectorAll("section");
+  var so = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) document.body.dataset.scene = Array.prototype.indexOf.call(sc,e.target) }) },{threshold:.5});
+  sc.forEach(function(s){ so.observe(s) });
+}
+document.querySelectorAll(".rv").forEach(function(el){ if(!el.closest(".hero")) watch(el) });
+$("name").textContent = "Gửi " + NAME;
+$("start").onclick = function(){ $("kitchen").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}) };
+
+// ---- hiệu ứng canvas (nhẹ, giới hạn số hạt, dừng khi hết) ----
+var cv = $("fx"), ctx = cv.getContext("2d"), dpr = Math.min(devicePixelRatio||1,1.5);
+var parts = [], running = false, rainUntil = 0, cols = ["#FCC89B","#FF5FA2","#FFFFFF","#FF8FBF","#FFDFC0"];
+function size(){ cv.width = innerWidth*dpr; cv.height = innerHeight*dpr }
+size(); addEventListener("resize", size);
+function go(){ if(!running){ running = true; requestAnimationFrame(tick) } }
+function burst(cx,cy,n){
+  if(reduce) return;
+  for(var i=0;i<n;i++){ var a = Math.random()*6.283, s = (3+Math.random()*6)*dpr;
+    parts.push({k:"c",x:cx*dpr,y:cy*dpr,vx:Math.cos(a)*s,vy:Math.sin(a)*s-4*dpr,w:(5+Math.random()*5)*dpr,c:cols[i%5],r:Math.random()*6,vr:Math.random()*.3-.15,life:90+Math.random()*40}) }
+  go();
+}
+function rain(ms){ if(reduce) return; rainUntil = Date.now()+ms; go() }
+function tick(){
+  if(Date.now()<rainUntil && parts.length<90){
+    parts.push({k:Math.random()<.6?"h":"d",x:Math.random()*cv.width,y:-20*dpr,vx:(Math.random()-.5)*dpr,vy:(1.5+Math.random()*2)*dpr,w:(14+Math.random()*12)*dpr,c:cols[Math.floor(Math.random()*2)],r:0,vr:(Math.random()-.5)*.06,life:330});
+  }
+  ctx.clearRect(0,0,cv.width,cv.height);
+  parts = parts.filter(function(p){ return p.life>0 && p.y<cv.height+40*dpr });
+  parts.forEach(function(p){
+    p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life--;
+    if(p.k==="c"){ p.vy += .15*dpr; p.vx *= .99 }
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.globalAlpha = Math.min(1,p.life/40);
+    if(p.k==="c") ctx.fillRect(-p.w/2,-p.w/4,p.w,p.w/2);
+    else if(p.k==="h"){ ctx.font = p.w+"px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("♥",0,0) }
+    else { ctx.beginPath(); ctx.arc(0,0,p.w/3,0,6.283); ctx.fill() }
+    ctx.restore();
+  });
+  if(parts.length || Date.now()<rainUntil) requestAnimationFrame(tick); else { running = false; ctx.clearRect(0,0,cv.width,cv.height) }
+}
+document.addEventListener("visibilitychange", function(){ if(document.hidden){ parts = []; rainUntil = 0 } });
+
+// ---- màn hình sẵn sàng + nhạc ----
+var bong = $("bong");
+function playMusic(){
+  if(!VIDEO_ID) return;
+  $("stage").innerHTML = '<iframe src="https://www.youtube.com/embed/'+VIDEO_ID+'?autoplay=1&playsinline=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Nhạc sinh nhật"></iframe>';
+  $("stage").classList.add("show"); $("yt").classList.add("show");
+  $("ytlink").href = "https://www.youtube.com/watch?v="+VIDEO_ID;
+}
+function startPlay(music){
+  $("gate").classList.add("hide"); document.body.classList.remove("lock");
+  bong.classList.add("on"); rain(4500);
+  document.querySelectorAll(".hero .rv").forEach(watch);
+  if(music) playMusic();
+  setTimeout(function(){ $("gate").style.display = "none" }, 380);
+}
+var WRONG = "Fan cứng mà trả lời cũng sai nữa lew lew";        // dùng cho gian bếp ONCE
+var GWRONG = "Trả lời sai rồi, you không phải chị của tôi";   // dùng cho 2 câu hỏi mở đầu
+var GATE = [
+ {e:"💌", t:"Phải Đan không?", p:"Nếu đúng thì người yêu cũ của em tên gì?", o:["Nhi","Vy","Ngọc","Lan"], c:0, no:GWRONG},
+ {e:"🎁", t:"Hiện tại em đang muốn làm một bất ngờ nhưng lại thiếu nguyên liệu", p:"Chị giúp em tìm kiếm những nguyên liệu đó nhé?", o:["Đồng ý","Không"], c:0, no:GWRONG}
+];
+var gstep = 0, glock = false;
+function gateShow(i, swap){
+  var q = GATE[i], box = $("gopts"), card = $("gcard");
+  gstep = i; glock = false;
+  $("gem").textContent = q.e; $("gt").textContent = q.t; $("gp").textContent = q.p;
+  box.innerHTML = "";
+  q.o.forEach(function(t, k){
+    var b = document.createElement("button"); b.className = "opt"; b.textContent = "ABCD".charAt(k)+". "+t;
+    b.onclick = function(){ gateAnswer(b, k) }; box.appendChild(b);
+  });
+  if(swap){ card.classList.remove("sw"); void card.offsetWidth; card.classList.add("sw") }
+}
+function gateAnswer(b, k){
+  if(glock) return;
+  glock = true;
+  var q = GATE[gstep];
+  if(k !== q.c){
+    b.classList.add("bad");
+    [].forEach.call($("gopts").children, function(x){ x.disabled = true });
+    var c = $("gcard"); c.classList.remove("no"); void c.offsetWidth; c.classList.add("no");
+    toast(q.no, "bad", reduce ? 1000 : 1400, function(){ gateShow(gstep, false) });
+    return;
+  }
+  b.classList.add("good");
+  [].forEach.call($("gopts").children, function(x){ x.disabled = true });
+  setTimeout(function(){ if(gstep < GATE.length-1) gateShow(gstep+1, true); else gateDone() }, reduce ? 150 : 450);
+}
+function gateDone(){
+  startPlay(true);
+  $("kitchen").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+}
+gateShow(0, false);
+
+// ---- trò chơi: nấu bánh ----
+var panel = $("panel"), tray = $("tray"), queue, got, cur;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j = Math.floor(Math.random()*(i+1)), t = a[i]; a[i] = a[j]; a[j] = t } return a }
+function esc(t){ var d = document.createElement("div"); d.textContent = t; return d.innerHTML }
+function reset(){
+  queue = shuffle(Q.slice()); got = 0; tray.innerHTML = "";
+  ING.forEach(function(g){ var s = document.createElement("div"); s.className = "slot"; s.title = g[1]; s.innerHTML = "<i>"+g[0]+"</i>"; tray.appendChild(s) });
+  $("count").textContent = "0/7 nguyên liệu"; ask();
+}
+function ask(again){
+  if(got>=7) return ready();
+  if(again !== true){
+    if(!queue.length) queue = shuffle(Q.slice());
+    cur = queue.shift();
+  }
+  var idx = shuffle([0,1,2,3]);
+  panel.innerHTML = '<p class="q">'+esc(cur[0])+'</p><div class="opts"></div>';
+  var box = panel.querySelector(".opts");
+  idx.forEach(function(i){
+    var b = document.createElement("button"); b.className = "opt"; b.textContent = cur[1][i];
+    b.onclick = function(){ answer(b, i, box) }; box.appendChild(b);
+  });
+}
+var toastT;
+function toast(msg, kind, ms, cb){
+  var t = $("toast"); $("tbox").textContent = msg; t.className = "show "+(kind||"");
+  clearTimeout(toastT);
+  toastT = setTimeout(function(){ t.classList.remove("show"); if(cb) cb() }, ms);
+}
+function answer(btn, i, box){
+  var ok = i === cur[2];
+  box.querySelectorAll(".opt").forEach(function(b){ b.disabled = true });
+  if(ok){
+    btn.classList.add("good");
+    var g = ING[got]; tray.children[got].classList.add("on"); got++;
+    $("count").textContent = got+"/7 nguyên liệu";
+    var r = tray.children[got-1].getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height/2, 18);
+    toast("Đúng rồi! Bạn nhận được "+g[0]+" "+g[1], "", reduce ? 700 : 1000, function(){ ask() });
+  } else {
+    btn.classList.add("bad");
+    toast(WRONG, "bad", reduce ? 1000 : 1400, function(){ ask(true) });
+  }
+}
+function ready(){
+  panel.innerHTML = '<p class="big">Đủ 7 nguyên liệu rồi!</p><p class="muted">🌾 🥚 🥛 🍬 🧈 🍦 🍓</p><button class="btn" id="bake">Nấu bánh</button>';
+  $("bake").onclick = bake;
+}
+function bake(){
+  var t = reduce ? 250 : 900;
+  panel.innerHTML = '<div class="bowl" id="bowl">🥣</div><p class="big" id="bt">Đang trộn bột...</p><div class="bar"><i id="bi"></i></div>';
+  var bi = $("bi"); bi.style.transitionDuration = (t*3)+"ms"; requestAnimationFrame(function(){ requestAnimationFrame(function(){ bi.classList.add("go") }) });
+  setTimeout(function(){ $("bt").textContent = "Đang nướng bánh..."; $("bowl").textContent = "🔥" }, t);
+  setTimeout(function(){ $("bt").textContent = "Đang trang trí kem và dâu..."; $("bowl").textContent = "🍰" }, t*2);
+  setTimeout(showCake, t*3);
+}
+function tier(x,y,w,h,c,d,extra){
+  var s = '<g class="tr" style="--d:'+d+'s"><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="12" fill="'+c+'"/><rect x="'+(x+w-14)+'" y="'+y+'" width="14" height="'+h+'" rx="7" fill="#000" opacity=".07"/>';
+  var n = Math.round(w/22), step = (w-28)/(n-1);
+  for(var i=0;i<n;i++) s += '<rect x="'+(x+8+i*step)+'" y="'+(y+2)+'" width="12" height="'+(12+((i*7)%4)*6)+'" rx="6" fill="#fff"/>';
+  s += '<rect x="'+(x-3)+'" y="'+(y-4)+'" width="'+(w+6)+'" height="16" rx="8" fill="#fff"/>';
+  return s + (extra||"") + '</g>';
+}
+function sprinkles(x,y,w,h,n,cs,skipMid){
+  var s = "";
+  for(var i=0;i<n;i++){
+    var px = x+8+(i*53)%(w-16), py = y+22+(i*29)%(h-30);
+    if(skipMid && px>52 && px<208) continue;
+    s += '<rect x="'+px+'" y="'+py+'" width="8" height="3" rx="1.5" fill="'+cs[i%cs.length]+'" transform="rotate('+((i*47)%180)+' '+px+' '+py+')"/>';
+  }
+  return s;
+}
+function berry(x,y,k){
+  var seeds = [[-4,0],[3,-1],[0,6],[5,6],[-5,7]].map(function(p){ return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="1.2" fill="#FFE3A0"/>' }).join("");
+  return '<g transform="translate('+x+','+y+') scale('+k+')"><path d="M0,-9C8,-12 14,-4 10,4C7,10 2,14 0,15C-2,14 -7,10 -10,4C-14,-4 -8,-12 0,-9Z" fill="#E8344E"/><path d="M-7,-9L0,-4L7,-9L3,-13L0,-10L-3,-13Z" fill="#3E9B5A"/>'+seeds+'</g>';
+}
+function rosette(x,y){ return '<circle cx="'+x+'" cy="'+y+'" r="9" fill="#fff" stroke="#FCC89B" stroke-width="2"/><circle cx="'+x+'" cy="'+y+'" r="4" fill="#FFD3E5"/>' }
+function candle(x){
+  var s = '<rect x="'+(x-3.5)+'" y="46" width="7" height="34" rx="3" fill="#fff"/>';
+  [52,62,72].forEach(function(y){ s += '<rect x="'+(x-3.5)+'" y="'+y+'" width="7" height="5" fill="#FF5FA2"/>' });
+  s += '<rect x="'+(x-.5)+'" y="41" width="1" height="5" fill="#7A5A74"/>';
+  s += '<g transform="translate('+x+',42)"><g class="fl"><circle cy="-8" r="11" fill="#FFE36B" opacity=".3"/><path d="M0,-18C6,-10 6,-3 0,1C-6,-3 -6,-10 0,-18Z" fill="#FF9A3D"/><path d="M0,-11C3,-7 3,-4 0,-1C-3,-4 -3,-7 0,-11Z" fill="#FFE36B"/></g></g>';
+  s += '<g transform="translate('+x+',34)"><circle class="sm" r="4" fill="#B9A9B5"/></g>';
+  return s;
+}
+function star(x,y,c,d){ return '<g transform="translate('+x+','+y+')"><path class="st" d="M0,-9Q1,-1 9,0Q1,1 0,9Q-1,1 -9,0Q-1,-1 0,-9Z" fill="'+c+'" style="animation-delay:'+d+'s"/></g>' }
+function cakeSVG(){
+  var o = '<svg class="cake build" id="cake" viewBox="0 0 260 285" role="img" aria-label="Chiếc bánh sinh nhật ba tầng với dâu tây và ba cây nến">';
+  o += '<ellipse cx="130" cy="264" rx="122" ry="13" fill="#fff" stroke="#FCC89B" stroke-width="3"/><ellipse cx="130" cy="262" rx="100" ry="8" fill="#FFF0E3"/>';
+  o += tier(30,190,200,66,"#FCC89B",0, sprinkles(30,190,200,66,18,["#FF5FA2","#FFFFFF","#7A2E6B"],true)
+      + '<text x="130" y="245" text-anchor="middle" font-family="Baloo 2,system-ui,sans-serif" font-weight="800" font-size="17" fill="#D63384">Happy Birthday</text>');
+  o += tier(58,132,144,62,"#FF5FA2",.12, sprinkles(58,132,144,62,16,["#FFFFFF","#FCC89B","#FFE36B"],false)
+      + '<text x="130" y="178" text-anchor="middle" font-size="26" fill="#fff">♥</text>');
+  o += tier(86,82,88,54,"#FFD3E5",.24, sprinkles(86,82,88,54,8,["#FF5FA2","#FCC89B","#7A2E6B"],false));
+  o += '<g class="tr" style="--d:.36s">'+rosette(96,80)+rosette(164,80)+berry(70,128,.9)+berry(190,128,.9)+berry(44,186,.9)+berry(216,186,.9)+'</g>';
+  o += '<g class="tr" style="--d:.5s">'+candle(111)+candle(130)+candle(149)+berry(130,97,.85)+'</g>';
+  o += star(22,62,"#FF5FA2",0)+star(240,72,"#FCC89B",.6)+star(26,150,"#FCC89B",1.1)+star(238,168,"#FF5FA2",.3);
+  return o + '</svg>';
+}
+function openLetter(){
+  $("lt").textContent = "Gửi "+NAME;
+  var body = $("lbody"); body.innerHTML = "";
+  LETTER.forEach(function(t){ var p = document.createElement("p"); p.textContent = t; body.appendChild(p) });
+  $("lbox").scrollTop = 0;
+  $("letter").classList.add("show"); document.body.classList.add("lock"); $("lbox").focus();
+}
+function closeLetter(){ $("letter").classList.remove("show"); if(!$("cakestage").classList.contains("show")) document.body.classList.remove("lock") }
+$("lclose").onclick = closeLetter;
+$("letter").onclick = function(e){ if(e.target === this) closeLetter() };
+document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeLetter() });
+var blown = false;
+function showCake(){
+  blown = false;
+  panel.innerHTML = '<p class="big">Bánh đã xong! 🎂</p><button class="btn" id="viewcake">Xem bánh</button>';
+  $("viewcake").onclick = openStage;
+  openStage();
+}
+function openStage(){
+  $("cs").innerHTML = cakeSVG() + '<div class="csb" id="csb"></div>';
+  if(blown){ var c = $("cake"); c.classList.remove("build"); c.classList.add("out") }
+  stageButtons();
+  $("cakestage").classList.add("show"); document.body.classList.add("lock");
+}
+function closeStage(){ $("cakestage").classList.remove("show"); if(!$("letter").classList.contains("show")) document.body.classList.remove("lock") }
+function stageButtons(){
+  var box = $("csb"); box.innerHTML = "";
+  function mk(txt, cls, fn){ var b = document.createElement("button"); b.className = cls; b.textContent = txt; b.onclick = fn; box.appendChild(b) }
+  if(!blown) mk("Thổi nến", "btn", blow);
+  else {
+    mk("Đọc lại lời chúc", "btn", openLetter);
+    mk("Nấu chiếc khác", "btn ghost", function(){ closeStage(); reset() });
+  }
+}
+function blow(){
+  blown = true;
+  var c = $("cake"); c.classList.add("out"); $("csb").innerHTML = "";
+  var r = c.getBoundingClientRect();
+  burst(r.left+r.width/2, r.top+r.height*.18, 70);
+  setTimeout(function(){ burst(r.left+r.width*.25, r.top+r.height*.1, 40) }, 200);
+  setTimeout(function(){ burst(r.left+r.width*.75, r.top+r.height*.1, 40) }, 380);
+  setTimeout(function(){ stageButtons(); openLetter() }, reduce ? 400 : 1100);
+}
+reset();
+$("gcard").focus();
+</script>
+</body>
+</html>
