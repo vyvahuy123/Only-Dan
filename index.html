@@ -149,10 +149,9 @@ canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index
   <div class="bong rv" id="bong" aria-hidden="true"><span class="head"></span><span class="stick"></span></div>
   <p class="muted rv" style="--i:1" id="hint">Chiếc bánh sinh nhật đang chờ bạn ở phía dưới</p>
   <div class="stage" id="stage"></div>
-  <p class="yt" id="yt">Nhạc không lên? <a id="ytlink" href="#" target="_blank" rel="noopener">Mở trên YouTube</a></p>
   <h1 class="rv" style="--i:2">Happy Birthday!</h1>
   <p class="name rv" style="--i:3" id="name"></p>
-  <p class="muted rv" style="--i:4">Trả lời câu hỏi về TWICE để gom nguyên liệu và tự nướng chiếc bánh sinh nhật của bạn.</p>
+  <p class="muted rv" style="--i:4">Người chị mà em yêu quý nhất.</p>
   <button class="btn rv" style="--i:5" id="start">Bắt đầu nấu bánh</button>
 </section>
 
@@ -196,6 +195,9 @@ var Q = [
 ];
 
 var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// luôn bắt đầu từ đầu trang, kể cả khi tải lại
+if("scrollRestoration" in history) history.scrollRestoration = "manual";
+window.scrollTo(0, 0);
 var $ = function(id){ return document.getElementById(id) };
 
 // ---- hiện dần khi cuộn + đổi nền theo cảnh ----
@@ -247,7 +249,7 @@ document.addEventListener("visibilitychange", function(){ if(document.hidden){ p
 var bong = $("bong");
 function playMusic(){
   if(!VIDEO_ID) return;
-  $("stage").innerHTML = '<iframe src="https://www.youtube.com/embed/'+VIDEO_ID+'?autoplay=1&playsinline=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Nhạc sinh nhật"></iframe>';
+  $("stage").innerHTML = '<iframe src="https://www.youtube.com/embed/'+VIDEO_ID+'?autoplay=1&playsinline=1&rel=0&loop=1&playlist='+VIDEO_ID+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Nhạc sinh nhật"></iframe>';
   $("stage").classList.add("show"); $("yt").classList.add("show");
   $("ytlink").href = "https://www.youtube.com/watch?v="+VIDEO_ID;
 }
@@ -293,7 +295,7 @@ function gateAnswer(b, k){
 }
 function gateDone(){
   startPlay(true);
-  $("kitchen").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+  window.scrollTo({top: 0, behavior: reduce ? "auto" : "smooth"});
 }
 gateShow(0, false);
 
